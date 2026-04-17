@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 
@@ -7,6 +8,9 @@ from utils.charts import (
     create_product_bar_chart,
     create_region_pie_chart,
 )
+
+# ── 현재 파일 기준 경로 설정 ──
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ── 페이지 설정 ──
 st.set_page_config(
@@ -18,7 +22,7 @@ st.set_page_config(
 # ── 데이터 로딩 (캐싱) ──
 @st.cache_data
 def load_data():
-    df = pd.read_csv('data/sales_data.csv')
+    df = pd.read_csv(os.path.join(BASE_DIR, 'data', 'sales_data.csv'))
     df['date'] = pd.to_datetime(df['date'])
     return df
 
